@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CruzaCoruja · Palavras cruzadas para o ENEM</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Nunito,system-ui,sans-serif;background:linear-gradient(160deg,#2e1065,#6d28d9 60%,#a78bfa);color:#fff;user-select:none;-webkit-user-select:none}
+#app{max-width:560px;margin:0 auto;padding:14px 12px 30px;position:relative;z-index:1}
+h1{font-family:'Baloo 2',cursive;font-size:36px;text-align:center;margin:6px 0 0}
+.sub{text-align:center;opacity:.85;margin:4px 0 12px}
+.top{text-align:right;font-size:26px}
+#moon{cursor:pointer}
+.card{background:#f5f3ff;color:#3b0764;border-radius:22px;padding:14px;margin:10px 0;box-shadow:0 5px 0 #0003}
+.card h2,.card h3{font-family:'Baloo 2',cursive;margin:4px 0}
+.card p{line-height:1.45;margin:4px 0 10px}
+button{font:inherit;font-weight:800;cursor:pointer;border:0;border-radius:14px;padding:10px 14px;background:#fff;color:#4c1d95;box-shadow:0 3px 0 #0003}
+button:active{transform:translateY(2px)}
+button:disabled{opacity:.4;cursor:default}
+button:focus-visible{outline:3px solid #fde68a}
+.w{display:flex;align-items:center;gap:12px}
+.w.lock{opacity:.6}
+.big{font-size:40px}
+.g1{flex:1}
+.g1 small{display:block;opacity:.7}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;font-family:'Baloo 2',cursive;font-size:20px}
+.lv{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.lvb{height:84px;font-size:20px}
+.sup{grid-column:1/-1;background:#fde68a;color:#78350f}
+.g{display:grid;gap:3px;justify-content:center;margin:8px auto;grid-template-columns:repeat(var(--c),var(--s))}
+.cell{width:var(--s);height:var(--s);background:#fff;color:#3b0764;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;position:relative;font-size:calc(var(--s)*.55);cursor:pointer}
+.cell i{position:absolute;top:1px;left:3px;font-size:9px;font-style:normal;opacity:.6}
+.cell.hl{background:#ddd6fe}
+.cell.cur{background:#8b5cf6;color:#fff}
+.cell.ok{background:#bbf7d0}
+.e{width:var(--s);height:var(--s)}
+ul{list-style:none;padding:0;margin:8px 0 70px}
+li{background:#ffffff22;border-radius:12px;padding:8px 10px;margin:5px 0;font-size:14px;cursor:pointer}
+li.on{background:#ffffff55;outline:2px solid #fff}
+li.dn{text-decoration:line-through;opacity:.6}
+.kb{position:fixed;left:0;right:0;bottom:0;background:#3b0764ee;padding:6px 4px 10px;z-index:5}
+.kb div{display:flex;justify-content:center;gap:4px;margin:4px 0}
+.kb button{padding:10px 0;width:9%;max-width:42px;font-size:16px}
+#md{position:fixed;inset:0;background:#2e1065cc;display:flex;align-items:center;justify-content:center;padding:14px;z-index:30}
+#md .card{max-height:85vh;overflow:auto;max-width:520px;width:100%}
+.bg span{position:fixed;opacity:.14;font-size:46px;pointer-events:none;animation:fl 6s ease-in-out infinite alternate}
+@keyframes fl{to{transform:translateY(-18px) rotate(8deg)}}
+.sheep{position:fixed;bottom:22vh;left:-160px;font-size:44px;font-weight:800;z-index:40;animation:walk 5s linear forwards,hop .5s ease-in-out infinite alternate}
+@keyframes walk{to{left:110vw}}
+@keyframes hop{to{margin-bottom:22px}}
+@media(prefers-reduced-motion:reduce){.bg span{animation:none}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div id="app"></div>
+<script>
+const D=(n,e,s,t)=>({n,e,s,w:t.split("\n").map(l=>l.split("|"))});
+const W=[
+D("Biologia","🧬","<b>Citologia:</b> procarionte (sem núcleo) × eucarionte; mitocôndria = respiração e ATP; ribossomo = proteínas; cloroplasto = fotossíntese (clorofila). Transporte: osmose (água), difusão, transporte ativo.<br><b>Divisão:</b> mitose (2 células idênticas) × meiose (4 células, gametas, variabilidade).<br><b>Genética:</b> genes e alelos, dominante/recessivo, 1ª Lei de Mendel.<br><b>Evolução:</b> seleção natural (Darwin).<br><b>Saúde e ecologia:</b> bactérias, vacinas, enzimas, hemácias; biomas e cadeias alimentares.",
+`MITOSE|Divisão celular que gera 2 células idênticas
+MEIOSE|Divisão que forma gametas (4 células)
+RIBOSSOMO|Organela que produz proteínas
+CLOROFILA|Pigmento verde da fotossíntese
+OSMOSE|Passagem de água por membrana semipermeável
+ENZIMA|Proteína que acelera reações no corpo
+BACTERIA|Ser procarionte, sem núcleo definido
+VACINA|Estimula a imunidade contra doenças
+ALELO|Cada forma alternativa de um gene
+HEMACIA|Célula do sangue que transporta oxigênio
+EVOLUCAO|Darwin a explicou pela seleção natural
+BIOMA|Grande ecossistema, como Cerrado ou Caatinga`),
+D("Química","⚗️","<b>Átomo:</b> prótons (+) e nêutrons (0) no núcleo; elétrons (−) na eletrosfera. Isótopos: mesmo nº de prótons, massas diferentes.<br><b>Tabela periódica:</b> ordenada pelo nº atômico, em grupos e períodos.<br><b>Ligações:</b> iônica (transferência de elétrons), covalente (compartilhamento), metálica.<br><b>Ácidos e bases:</b> ácido libera H⁺; pH &lt; 7 ácido, &gt; 7 básico.<br><b>Reações:</b> oxidação = perda de elétrons; catalisador acelera sem ser consumido.<br><b>Soluções:</b> soluto + solvente.<br><b>Orgânica:</b> álcool tem grupo –OH.",
+`ATOMO|Menor unidade de um elemento químico
+ELETRON|Partícula de carga negativa
+NEUTRON|Partícula sem carga no núcleo
+ISOTOPO|Átomos com mesmo nº de prótons e massas diferentes
+MOLECULA|Conjunto de átomos ligados
+ACIDO|Substância com pH menor que 7
+OXIDACAO|Perda de elétrons numa reação
+SOLUCAO|Mistura homogênea de soluto e solvente
+CATALISADOR|Acelera a reação sem ser consumido
+COVALENTE|Ligação com compartilhamento de elétrons
+PERIODICA|Tabela que organiza os elementos
+ALCOOL|Função orgânica com grupo hidroxila`),
+D("Física","🔭","<b>Cinemática:</b> velocidade = Δs/Δt; aceleração = Δv/Δt.<br><b>Leis de Newton:</b> inércia (1ª), F = m·a (2ª), ação e reação (3ª). Atrito se opõe ao movimento; g ≈ 10 m/s².<br><b>Energia:</b> se conserva; cinética = mv²/2; potência = trabalho/tempo.<br><b>Hidrostática:</b> densidade = m/V; pressão = F/A.<br><b>Ondulatória:</b> frequência em Hz; refração = desvio ao mudar de meio.<br><b>Eletricidade:</b> corrente (A), tensão (V), 1ª Lei de Ohm: V = R·i.",
+`VELOCIDADE|Variação da posição pelo tempo
+ACELERACAO|Variação da velocidade pelo tempo
+INERCIA|1ª Lei de Newton: tendência a manter o movimento
+GRAVIDADE|Força que atrai os corpos para a Terra
+ENERGIA|Capacidade de realizar trabalho; se conserva
+POTENCIA|Trabalho realizado por unidade de tempo
+PRESSAO|Força dividida pela área
+DENSIDADE|Massa dividida pelo volume
+CORRENTE|Fluxo de cargas elétricas, medido em ampères
+REFRACAO|Desvio da onda ao mudar de meio
+ATRITO|Força que se opõe ao deslizamento
+FREQUENCIA|Número de oscilações por segundo (Hz)`),
+D("História","🏛️","<b>Idade Média:</b> feudalismo (terra, suserania e vassalagem).<br><b>Modernidade:</b> Renascimento (humanismo), Reforma Protestante (Lutero), Iluminismo (razão e liberdade), Revolução Industrial (Inglaterra, séc. XVIII).<br><b>Brasil Colônia:</b> capitanias hereditárias, escravidão africana, engenhos de cana.<br><b>Império e República:</b> Abolição (1888), República (1889).<br><b>Século XX:</b> Era Vargas (1930–45), nazismo e II Guerra, ditadura civil-militar (1964–85), Constituição de 1988.",
+`FEUDALISMO|Sistema medieval de suserania e vassalagem
+RENASCIMENTO|Movimento humanista dos séculos XIV a XVI
+ILUMINISMO|Movimento da razão e das liberdades, séc. XVIII
+ABOLICAO|Lei Áurea, 1888: fim da escravidão
+REPUBLICA|Regime proclamado no Brasil em 1889
+ESCRAVIDAO|Base do trabalho nos engenhos coloniais
+CAPITANIAS|Divisões hereditárias do Brasil Colônia
+VARGAS|Presidente da era iniciada em 1930
+DITADURA|Regime militar brasileiro de 1964 a 1985
+NAZISMO|Regime de Hitler na Alemanha
+REFORMA|Protestante: Lutero contestou a Igreja
+INDUSTRIAL|Revolução iniciada na Inglaterra no séc. XVIII`),
+D("Geografia","🌎","<b>Cartografia:</b> latitude (paralelos, Equador), longitude (meridianos, Greenwich), escala e fusos.<br><b>Relevo:</b> tectônica de placas causa terremotos e vulcões; erosão desgasta e modela o relevo.<br><b>Biomas do Brasil:</b> Amazônia, Cerrado, Caatinga (semiárido), Pantanal, Mata Atlântica, Pampa.<br><b>População:</b> demografia, migrações e urbanização acelerada no séc. XX.",
+`LATITUDE|Distância angular ao Equador
+LONGITUDE|Distância angular ao meridiano de Greenwich
+CERRADO|Savana brasileira conhecida como berço das águas
+URBANIZACAO|Crescimento da população nas cidades
+EROSAO|Desgaste e transporte de solo e rocha
+TECTONICA|Placas dessa teoria causam terremotos e vulcões
+MIGRACAO|Deslocamento de pessoas entre regiões
+CAATINGA|Bioma semiárido exclusivo do Brasil
+PANTANAL|Maior planície alagável do planeta
+MERIDIANO|Linha imaginária que liga os polos
+DEMOGRAFIA|Estudo estatístico das populações
+RELEVO|Formas da superfície terrestre`)
+];
+const $=s=>document.querySelector(s),A=$("#app");
+let P={},G=null,mc=0;
+try{P=JSON.parse(localStorage.getItem("cc")||"{}")}catch(e){}
+const save=()=>{try{localStorage.setItem("cc",JSON.stringify(P))}catch(e){}};
+const done=i=>P[i]||0,open=i=>i==0||done(i-1)>=6;
+$(".bg").innerHTML=["🦉","🐧","✨","🐧","🦉","✨"].map((e,i)=>`<span style="left:${6+i*17}%;top:${(i*41)%80+5}%;animation-delay:${i}s">${e}</span>`).join("");
+
+function modal(h){let m=$("#md");if(m)m.remove();if(!h)return;m=document.createElement("div");m.id="md";m.innerHTML=`<div class="card">${h}</div>`;document.body.appendChild(m)}
+function study(ids){modal("<h2>📖 Resumo para estudar</h2>"+ids.map(i=>`<h3>${W[i].e} ${W[i].n}</h3><p>${W[i].s}</p>`).join("")+"<button onclick='modal()'>Fechar</button>")}
+function moon(){if(++mc<3)return;mc=0;const s=document.createElement("div");s.className="sheep";s.textContent="🐑 Bééé!";document.body.appendChild(s);setTimeout(()=>s.remove(),5200)}
+
+function home(){G=null;
+ A.innerHTML=`<div class="top"><span id="moon">🌙</span></div><h1>🦉 CruzaCoruja 🐧</h1><p class="sub">Palavras cruzadas para o ENEM e vestibular</p>`+
+ W.map((w,i)=>`<div class="card w ${open(i)?"":"lock"}"><div class="big">${w.e}</div><div class="g1"><b>Mundo ${i+1}: ${w.n}</b><small>${open(i)?done(i)+" de 6 fases":"🔒 Conclua o mundo anterior"}</small></div>${open(i)?`<button onclick="world(${i})">Entrar</button>`:""}</div>`).join("")+
+ `<p class="sub">Dica: a lua guarda um segredo 🌙</p>`;
+ $("#moon").onclick=moon}
+
+function world(i){G=null;const w=W[i];
+ A.innerHTML=`<div class="bar"><button onclick="home()">←</button><span>${w.e} ${w.n}</span><button onclick="study([${i}])">📖</button></div><div class="lv">`+
+ [0,1,2,3,4,5].map(k=>`<button class="lvb ${k==5?"sup":""}" ${k>done(i)?"disabled":""} onclick="play(${i},${k})">${k==5?"⭐ Super nível<br><small>só de "+w.n+"</small>":"Fase "+(k+1)+(k<done(i)?" ✅":"")}</button>`).join("")+
+ `</div><p class="sub">5 fases mistas e 1 super nível. Travou? Toque em 📖 para revisar.</p>`}
+
+function build(i,k){const o=W[i].w;
+ if(k==5)return{ws:o.filter((_,j)=>j%3!=2),ids:[i]};
+ const ws=[0,1,2].map(j=>o[(k*2+j)%12]),ids=[i];
+ for(let j=1;j<=3;j++){const t=(i+j)%W.length;ws.push(W[t].w[(k*3+j)%12]);ids.push(t)}
+ return{ws,ids}}
+
+function lay(ws){let best;
+ for(let t=0;t<80;t++){
+  const L=ws.map(([a,c])=>({a,c})).sort(()=>Math.random()-.5);
+  if(t%2)L.sort((x,y)=>y.a.length-x.a.length);
+  const g={},P=[];
+  const put=(w,x,y,d)=>{for(let j=0;j<w.a.length;j++){const q=(x+(d?0:j))+","+(y+(d?j:0));g[q]=g[q]||{c:w.a[j],m:0};g[q].m|=1<<d}P.push({...w,x,y,d})};
+  const ok=(a,x,y,d)=>{let h=0;const dx=d?0:1,dy=d?1:0;
+   if(g[(x-dx)+","+(y-dy)]||g[(x+dx*a.length)+","+(y+dy*a.length)])return 0;
+   for(let j=0;j<a.length;j++){const X=x+dx*j,Y=y+dy*j,q=g[X+","+Y];
+    if(q){if(q.c!=a[j]||(q.m>>d&1))return 0;h++}
+    else if(g[(X+dy)+","+(Y+dx)]||g[(X-dy)+","+(Y-dx)])return 0}
+   return h};
+  put(L[0],0,0,0);
+  for(const w of L.slice(1)){let f=0;
+   for(const p of P){if(f)break;const d=1-p.d;
+    for(let i=0;i<p.a.length&&!f;i++)for(let j=0;j<w.a.length;j++){
+     if(p.a[i]!=w.a[j])continue;
+     const x=p.x+(p.d?0:i)-(d?0:j),y=p.y+(p.d?i:0)-(d?j:0);
+     if(ok(w.a,x,y,d)){put(w,x,y,d);f=1;break}}}}
+  if(!best||P.length>best.length)best=P;
+  if(P.length==ws.length)break}
+ const mx=Math.min(...best.map(w=>w.x)),my=Math.min(...best.map(w=>w.y));
+ best.forEach(w=>{w.x-=mx;w.y-=my});
+ const c=Math.max(...best.map(w=>w.x+(w.d?1:w.a.length))),r=Math.max(...best.map(w=>w.y+(w.d?w.a.length:1)));
+ best.sort((a,b)=>a.y-b.y||a.x-b.x);
+ const n={};let N=0;best.forEach(w=>{const q=w.x+","+w.y;w.n=n[q]||(n[q]=++N)});
+ return{p:best,c,r}}
+
+const cl=w=>[...w.a].map((_,j)=>(w.x+(w.d?0:j))+","+(w.y+(w.d?j:0)));
+const solved=w=>cl(w).every((q,j)=>G.u[q]==w.a[j]);
+
+function play(i,k){const L=build(i,k),l=lay(L.ws);
+ G={i,k,ids:L.ids,p:l.p,c:l.c,r:l.r,u:{},sel:0,cur:cl(l.p[0])[0],w:0};
+ const rows=["QWERTYUIOP","ASDFGHJKL","ZXCVBNM⌫"];
+ A.innerHTML=`<div class="bar"><button onclick="world(${i})">←</button><span>${k==5?"⭐ Super nível":"Fase "+(k+1)}</span><span><button onclick="hint()">💡</button> <button onclick="study(G.ids)">📖</button></span></div><div id="pl"></div><div class="kb">${rows.map(r=>`<div>${[...r].map(c=>`<button onclick="key('${c}')">${c}</button>`).join("")}</div>`).join("")}</div>`;
+ draw()}
+
+function draw(){const{p,c,r,u}=G,s=Math.max(22,Math.min(38,Math.floor((Math.min(innerWidth,560)-44)/c)-3));
+ const hl=new Set(cl(p[G.sel])),num={},own={},okc=new Set();
+ p.forEach(w=>{num[w.x+","+w.y]=w.n;cl(w).forEach(q=>own[q]=1);if(solved(w))cl(w).forEach(q=>okc.add(q))});
+ let h="";
+ for(let y=0;y<r;y++)for(let x=0;x<c;x++){const q=x+","+y;
+  h+=own[q]?`<div class="cell ${hl.has(q)?"hl":""} ${q==G.cur?"cur":""} ${okc.has(q)?"ok":""}" onclick="tap('${q}')">${num[q]?`<i>${num[q]}</i>`:""}${u[q]||""}</div>`:`<div class="e"></div>`}
+ $("#pl").innerHTML=`<div style="overflow-x:auto"><div class="g" style="--c:${c};--s:${s}px">${h}</div></div><ul>`+
+ p.map((w,j)=>`<li class="${j==G.sel?"on":""} ${solved(w)?"dn":""}" onclick="selw(${j})"><b>${w.n}${w.d?"↓":"→"}</b> ${w.c} <small>(${w.a.length})</small></li>`).join("")+"</ul>";
+ if(!G.w&&p.every(solved))setTimeout(win,250)}
+
+function tap(q){const cand=G.p.map((_,j)=>j).filter(j=>cl(G.p[j]).includes(q));
+ if(G.cur==q&&cand.length>1&&cand.includes(G.sel))G.sel=cand.find(j=>j!=G.sel);
+ else if(!cand.includes(G.sel))G.sel=cand[0];
+ G.cur=q;draw()}
+function selw(j){G.sel=j;const q=cl(G.p[j]);G.cur=q.find(x=>!G.u[x])||q[0];draw()}
+function key(ch){if(!G||!G.cur)return;const q=cl(G.p[G.sel]),j=q.indexOf(G.cur);
+ if(ch=="⌫"){if(G.u[G.cur])delete G.u[G.cur];else if(j>0){G.cur=q[j-1];delete G.u[G.cur]}}
+ else{G.u[G.cur]=ch;if(j>=0&&j<q.length-1)G.cur=q[j+1]}
+ draw()}
+function hint(){const w=G.p[G.sel],q=cl(w),j=Math.max(0,q.indexOf(G.cur));G.u[q[j]]=w.a[j];draw()}
+function win(){if(!G||G.w)return;G.w=1;const{i,k}=G;if(done(i)<=k){P[i]=k+1;save()}
+ modal(`<h2>🎉 ${k==5?"Mundo concluído!":"Fase concluída!"}</h2><p>${k==5?"A coruja está orgulhosa de você! 🦉":"Muito bem! Próxima fase liberada. 🐧"}</p><button onclick="modal();world(${i})">Continuar</button>`)}
+
+document.addEventListener("keydown",e=>{if(!G||!$("#pl")||$("#md"))return;const k=e.key.toUpperCase();
+ if(k=="BACKSPACE")key("⌫");else if(/^[A-Z]$/.test(k))key(k)});
+home();
+</script>
+</body>
+</html>
