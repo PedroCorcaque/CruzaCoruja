@@ -61,7 +61,7 @@ body.kbo #pl{padding-bottom:270px}
 <script>
 const D=(n,e,s,t)=>({n,e,s,w:t.split("\n").map(l=>l.split("|"))});
 const W=[
-D("Biologia","🧬","<b>Citologia:</b> procarionte (sem núcleo) × eucarionte; mitocôndria = respiração e ATP; ribossomo = proteínas; cloroplasto = fotossíntese (clorofila). Transporte: osmose (água), difusão, transporte ativo.<br><b>Divisão:</b> mitose (2 células idênticas) × meiose (4 células, gametas, variabilidade).<br><b>Genética:</b> genes e alelos, dominante/recessivo, 1ª Lei de Mendel.<br><b>Evolução:</b> seleção natural (Darwin).<br><b>Saúde e ecologia:</b> bactérias, vacinas, enzimas, hemácias; biomas e cadeias alimentares.",
+D("Biologia","🧬","<b>Citologia:</b> procarionte (sem núcleo) × eucarionte; mitocôndria = respiração e ATP; ribossomo = proteínas; cloroplasto = fotossíntese (clorofila). Transporte: osmose (água), difusão, transporte ativo.<br><b>Divisão:</b> mitose (2 células idênticas) × meiose (4 células, gametas, variabilidade).<br><b>Genética:</b> genes e alelos, dominante/recessivo, 1ª Lei de Mendel.<br><b>Evolução:</b> seleção natural (Darwin).<br><b>Saúde e ecologia:</b> bactérias, vacinas, enzimas, hemácias; biomas e cadeias alimentares.<br><b>Mais:</b> núcleo guarda o DNA (cromossomos); genótipo × fenótipo; respiração celular; simbiose e predação; produtores e decompositores; fungos, vírus, anticorpos e hormônios.biomas e cadeias alimentares.",
 `MITOSE|Divisão celular que gera 2 células idênticas
 MEIOSE|Divisão que forma gametas (4 células)
 RIBOSSOMO|Organela que produz proteínas
@@ -73,8 +73,26 @@ VACINA|Estimula a imunidade contra doenças
 ALELO|Cada forma alternativa de um gene
 HEMACIA|Célula do sangue que transporta oxigênio
 EVOLUCAO|Darwin a explicou pela seleção natural
-BIOMA|Grande ecossistema, como Cerrado ou Caatinga`),
-D("Química","⚗️","<b>Átomo:</b> prótons (+) e nêutrons (0) no núcleo; elétrons (−) na eletrosfera. Isótopos: mesmo nº de prótons, massas diferentes.<br><b>Tabela periódica:</b> ordenada pelo nº atômico, em grupos e períodos.<br><b>Ligações:</b> iônica (transferência de elétrons), covalente (compartilhamento), metálica.<br><b>Ácidos e bases:</b> ácido libera H⁺; pH &lt; 7 ácido, &gt; 7 básico.<br><b>Reações:</b> oxidação = perda de elétrons; catalisador acelera sem ser consumido.<br><b>Soluções:</b> soluto + solvente.<br><b>Orgânica:</b> álcool tem grupo –OH.",
+BIOMA|Grande ecossistema, como Cerrado ou Caatinga
+CELULA|Unidade básica dos seres vivos
+NUCLEO|Região da célula que guarda o DNA
+CROMOSSOMO|Estrutura que carrega os genes
+PROTEINA|Macromolécula formada por aminoácidos
+FOTOSSINTESE|Processo em que plantas produzem glicose com luz
+RESPIRACAO|Processo que libera energia (ATP) da glicose
+MENDEL|Monge considerado o pai da genética
+GENOTIPO|Conjunto de genes de um indivíduo
+FENOTIPO|Características observáveis de um indivíduo
+SIMBIOSE|Interação ecológica entre espécies
+PREDACAO|Relação em que um animal caça outro
+PRODUTOR|Nível trófico que realiza fotossíntese
+FUNGO|Organismo decompositor, como o cogumelo
+VIRUS|Parasita que só se reproduz dentro de células
+ANTICORPO|Proteína de defesa produzida pelo corpo
+MEMBRANA|Envoltório que controla o que entra e sai da célula
+ECOLOGIA|Estudo das relações entre seres vivos e ambiente
+HORMONIO|Mensageiro químico do sistema endócrino`),
+D("Química","⚗️","<b>Átomo:</b> prótons (+) e nêutrons (0) no núcleo; elétrons (−) na eletrosfera. Isótopos: mesmo nº de prótons, massas diferentes.<br><b>Tabela periódica:</b> ordenada pelo nº atômico, em grupos e períodos.<br><b>Ligações:</b> iônica (transferência de elétrons), covalente (compartilhamento), metálica.<br><b>Ácidos e bases:</b> ácido libera H⁺; pH &lt; 7 ácido, &gt; 7 básico.<br><b>Reações:</b> oxidação = perda de elétrons; catalisador acelera sem ser consumido.<br><b>Soluções:</b> soluto + solvente.<br><b>Orgânica:</b> álcool tem grupo –OH.<br><b>Mais:</b> cátions (+) e ânions (−); bases têm pH &gt; 7; hidrogênio, oxigênio e carbono; combustão e reações exotérmicas; entalpia; diluição; destilação e sublimação; polímeros.álcool tem grupo –OH.",
 `ATOMO|Menor unidade de um elemento químico
 ELETRON|Partícula de carga negativa
 NEUTRON|Partícula sem carga no núcleo
@@ -86,8 +104,26 @@ SOLUCAO|Mistura homogênea de soluto e solvente
 CATALISADOR|Acelera a reação sem ser consumido
 COVALENTE|Ligação com compartilhamento de elétrons
 PERIODICA|Tabela que organiza os elementos
-ALCOOL|Função orgânica com grupo hidroxila`),
-D("Física","🔭","<b>Cinemática:</b> velocidade = Δs/Δt; aceleração = Δv/Δt.<br><b>Leis de Newton:</b> inércia (1ª), F = m·a (2ª), ação e reação (3ª). Atrito se opõe ao movimento; g ≈ 10 m/s².<br><b>Energia:</b> se conserva; cinética = mv²/2; potência = trabalho/tempo.<br><b>Hidrostática:</b> densidade = m/V; pressão = F/A.<br><b>Ondulatória:</b> frequência em Hz; refração = desvio ao mudar de meio.<br><b>Eletricidade:</b> corrente (A), tensão (V), 1ª Lei de Ohm: V = R·i.",
+ALCOOL|Função orgânica com grupo hidroxila
+PROTON|Partícula positiva do núcleo atômico
+NUCLEO|Região central do átomo
+CATION|Íon de carga positiva
+ANION|Íon de carga negativa
+IONICA|Ligação por transferência de elétrons
+METAL|Bom condutor de eletricidade e calor
+BASE|Substância com pH maior que 7
+HIDROGENIO|Elemento mais leve da tabela
+OXIGENIO|Gás essencial à respiração e à combustão
+CARBONO|Base da química orgânica
+DILUICAO|Adição de solvente a uma solução
+REACAO|Transformação de reagentes em produtos
+COMBUSTAO|Queima de combustível com oxigênio
+POLIMERO|Molécula gigante formada por repetições
+ENTALPIA|Calor trocado em uma reação
+DESTILACAO|Separa líquidos pelo ponto de ebulição
+SUBLIMACAO|Passagem direta de sólido para gás
+EXOTERMICA|Reação que libera calor`),
+D("Física","🔭","<b>Cinemática:</b> velocidade = Δs/Δt; aceleração = Δv/Δt.<br><b>Leis de Newton:</b> inércia (1ª), F = m·a (2ª), ação e reação (3ª). Atrito se opõe ao movimento; g ≈ 10 m/s².<br><b>Energia:</b> se conserva; cinética = mv²/2; potência = trabalho/tempo.<br><b>Hidrostática:</b> densidade = m/V; pressão = F/A.<br><b>Ondulatória:</b> frequência em Hz; refração = desvio ao mudar de meio.<br><b>Eletricidade:</b> corrente (A), tensão (V), 1ª Lei de Ohm: V = R·i.<br><b>Mais:</b> força, massa e peso; trabalho, energia cinética e potencial; calor, temperatura e dilatação; empuxo (Arquimedes); som, luz, lentes e espelhos; resistência, tensão e magnetismo.V = R·i.",
 `VELOCIDADE|Variação da posição pelo tempo
 ACELERACAO|Variação da velocidade pelo tempo
 INERCIA|1ª Lei de Newton: tendência a manter o movimento
@@ -99,8 +135,26 @@ DENSIDADE|Massa dividida pelo volume
 CORRENTE|Fluxo de cargas elétricas, medido em ampères
 REFRACAO|Desvio da onda ao mudar de meio
 ATRITO|Força que se opõe ao deslizamento
-FREQUENCIA|Número de oscilações por segundo (Hz)`),
-D("História","🏛️","<b>Idade Média:</b> feudalismo (terra, suserania e vassalagem).<br><b>Modernidade:</b> Renascimento (humanismo), Reforma Protestante (Lutero), Iluminismo (razão e liberdade), Revolução Industrial (Inglaterra, séc. XVIII).<br><b>Brasil Colônia:</b> capitanias hereditárias, escravidão africana, engenhos de cana.<br><b>Império e República:</b> Abolição (1888), República (1889).<br><b>Século XX:</b> Era Vargas (1930–45), nazismo e II Guerra, ditadura civil-militar (1964–85), Constituição de 1988.",
+FREQUENCIA|Número de oscilações por segundo (Hz)
+FORCA|Grandeza que altera o movimento de um corpo
+MASSA|Quantidade de matéria de um corpo
+PESO|Força da gravidade sobre uma massa
+TRABALHO|Força aplicada ao longo de um deslocamento
+CINETICA|Energia associada ao movimento
+POTENCIAL|Energia armazenada pela posição de um corpo
+TEMPERATURA|Grandeza ligada à agitação das moléculas
+CALOR|Energia térmica em trânsito
+DILATACAO|Aumento de tamanho com o aquecimento
+SOM|Onda mecânica que precisa de um meio
+LENTE|Objeto que desvia a luz por refração
+ESPELHO|Superfície que reflete a luz
+RESISTENCIA|Oposição à passagem da corrente elétrica
+TENSAO|Diferença de potencial, em volts
+MAGNETISMO|Fenômeno dos ímãs e dos campos magnéticos
+EMPUXO|Força de baixo para cima exercida por fluidos
+ONDA|Perturbação que transporta energia
+REFLEXAO|Retorno da luz ao bater numa superfície`),
+D("História","🏛️","<b>Idade Média:</b> feudalismo (terra, suserania e vassalagem).<br><b>Modernidade:</b> Renascimento (humanismo), Reforma Protestante (Lutero), Iluminismo (razão e liberdade), Revolução Industrial (Inglaterra, séc. XVIII).<br><b>Brasil Colônia:</b> capitanias hereditárias, escravidão africana, engenhos de cana.<br><b>Império e República:</b> Abolição (1888), República (1889).<br><b>Século XX:</b> Era Vargas (1930–45), nazismo e II Guerra, ditadura civil-militar (1964–85), Constituição de 1988.<br><b>Mais:</b> burguesia e absolutismo; humanismo e imprensa de Gutenberg; Revolução Francesa e Napoleão; Independência (1822) e Império; quilombos, bandeirantes e café; fascismo, comunismo, imperialismo e Holocausto.Constituição de 1988.",
 `FEUDALISMO|Sistema medieval de suserania e vassalagem
 RENASCIMENTO|Movimento humanista dos séculos XIV a XVI
 ILUMINISMO|Movimento da razão e das liberdades, séc. XVIII
@@ -112,8 +166,26 @@ VARGAS|Presidente da era iniciada em 1930
 DITADURA|Regime militar brasileiro de 1964 a 1985
 NAZISMO|Regime de Hitler na Alemanha
 REFORMA|Protestante: Lutero contestou a Igreja
-INDUSTRIAL|Revolução iniciada na Inglaterra no séc. XVIII`),
-D("Geografia","🌎","<b>Cartografia:</b> latitude (paralelos, Equador), longitude (meridianos, Greenwich), escala e fusos.<br><b>Relevo:</b> tectônica de placas causa terremotos e vulcões; erosão desgasta e modela o relevo.<br><b>Biomas do Brasil:</b> Amazônia, Cerrado, Caatinga (semiárido), Pantanal, Mata Atlântica, Pampa.<br><b>População:</b> demografia, migrações e urbanização acelerada no séc. XX.",
+INDUSTRIAL|Revolução iniciada na Inglaterra no séc. XVIII
+FEUDO|Terra pertencente ao senhor feudal
+BURGUESIA|Classe comercial que ascendeu no fim da Idade Média
+HUMANISMO|Valorização do ser humano no Renascimento
+LUTERO|Monge alemão da Reforma Protestante
+ABSOLUTISMO|Poder concentrado no rei, como em Luís XIV
+NAPOLEAO|Imperador francês derrotado em Waterloo
+INDEPENDENCIA|Rompimento do Brasil com Portugal em 1822
+IMPERIO|Regime brasileiro de 1822 a 1889
+QUILOMBO|Comunidade de resistência de escravizados
+BANDEIRANTES|Exploradores que avançaram pelo interior do Brasil
+CAFE|Principal produto econômico do Império e da República Velha
+DEMOCRACIA|Regime de participação popular
+HOLOCAUSTO|Extermínio de judeus pelo regime nazista
+FASCISMO|Regime de Mussolini na Itália
+COMUNISMO|Ideologia da Revolução Russa de 1917
+IMPERIALISMO|Domínio de potências sobre África e Ásia no séc. XIX
+COLONIA|Território dominado e explorado por uma metrópole
+GUTENBERG|Inventor da imprensa de tipos móveis`),
+D("Geografia","🌎","<b>Cartografia:</b> latitude (paralelos, Equador), longitude (meridianos, Greenwich), escala e fusos.<br><b>Relevo:</b> tectônica de placas causa terremotos e vulcões; erosão desgasta e modela o relevo.<br><b>Biomas do Brasil:</b> Amazônia, Cerrado, Caatinga (semiárido), Pantanal, Mata Atlântica, Pampa.<br><b>População:</b> demografia, migrações e urbanização acelerada no séc. XX.<br><b>Mais:</b> clima, fusos e escala; equador e Greenwich; hidrografia, aquíferos, planaltos e planícies; vulcões e terremotos; solo; industrialização, agronegócio, hidrelétricas e globalização.urbanização acelerada no séc. XX.",
 `LATITUDE|Distância angular ao Equador
 LONGITUDE|Distância angular ao meridiano de Greenwich
 CERRADO|Savana brasileira conhecida como berço das águas
@@ -125,7 +197,25 @@ CAATINGA|Bioma semiárido exclusivo do Brasil
 PANTANAL|Maior planície alagável do planeta
 MERIDIANO|Linha imaginária que liga os polos
 DEMOGRAFIA|Estudo estatístico das populações
-RELEVO|Formas da superfície terrestre`)
+RELEVO|Formas da superfície terrestre
+CLIMA|Padrão do tempo atmosférico em longo prazo
+EQUADOR|Linha que divide a Terra em dois hemisférios
+GREENWICH|Local do meridiano de origem
+FUSO|Faixa de 15 graus com a mesma hora
+ESCALA|Relação entre o mapa e o terreno real
+AMAZONIA|Maior floresta tropical do mundo
+PAMPA|Bioma de campos do sul do Brasil
+HIDROGRAFIA|Estudo das águas de um território
+AQUIFERO|Reserva subterrânea de água, como o Guarani
+PLANALTO|Relevo elevado e aplainado
+PLANICIE|Relevo baixo e plano
+VULCAO|Abertura por onde sai magma
+GLOBALIZACAO|Integração econômica e cultural mundial
+INDUSTRIA|Setor que transforma matéria-prima
+AGRONEGOCIO|Produção agrícola em larga escala
+HIDRELETRICA|Usina que gera energia com a força da água
+TERREMOTO|Tremor da crosta causado pelo choque de placas
+SOLO|Camada superficial onde crescem as plantas`)
 ];
 const $=s=>document.querySelector(s),A=$("#app");
 let P={},G=null,mc=0;
@@ -150,9 +240,9 @@ function world(i){G=null;document.body.classList.remove("kbo");const w=W[i];
  `</div><p class="sub">5 fases mistas e 1 super nível. Travou? Toque em 📖 para revisar.</p>`}
 
 function build(i,k){const o=W[i].w;
- if(k==5)return{ws:o.filter((_,j)=>j%3!=2),ids:[i]};
- const ws=[0,1,2].map(j=>o[(k*2+j)%12]),ids=[i];
- for(let j=1;j<=3;j++){const t=(i+j)%W.length;ws.push(W[t].w[(k*3+j)%12]);ids.push(t)}
+ if(k==5)return{ws:o.slice(15).sort(()=>Math.random()-.5).slice(0,8),ids:[i]};
+ const ws=[0,1,2].map(j=>o[k*3+j]),ids=[i];
+ for(let j=1;j<=3;j++){const t=(i+j)%W.length;ws.push(W[t].w[15+(k*3+j)%15]);ids.push(t)}
  return{ws,ids}}
 
 function lay(ws){let best,bs0=-1e9;
