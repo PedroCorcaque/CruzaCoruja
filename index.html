@@ -29,20 +29,22 @@ button:focus-visible{outline:3px solid #fde68a}
 .lv{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .lvb{height:84px;font-size:20px}
 .sup{grid-column:1/-1;background:#fde68a;color:#78350f}
-.g{display:grid;gap:3px;justify-content:center;margin:8px auto;grid-template-columns:repeat(var(--c),var(--s))}
+.g{display:grid;gap:3px;justify-content:center;margin:8px auto;padding:8px;width:max-content;max-width:100%;background:#4c1d95;border-radius:16px;box-shadow:0 5px 0 #0003;grid-template-columns:repeat(var(--c),var(--s))}
 .cell{width:var(--s);height:var(--s);background:#fff;color:#3b0764;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;position:relative;font-size:calc(var(--s)*.55);cursor:pointer}
 .cell i{position:absolute;top:1px;left:3px;font-size:9px;font-style:normal;opacity:.6}
 .cell.hl{background:#ddd6fe}
 .cell.cur{background:#8b5cf6;color:#fff}
 .cell.ok{background:#bbf7d0}
-.e{width:var(--s);height:var(--s)}
-ul{list-style:none;padding:0;margin:8px 0 70px}
+.e{width:var(--s);height:var(--s);background:#6d28d9;opacity:.55;border-radius:6px}
+ul{list-style:none;padding:0;margin:8px 0 20px}
 li{background:#ffffff22;border-radius:12px;padding:8px 10px;margin:5px 0;font-size:14px;cursor:pointer}
 li.on{background:#ffffff55;outline:2px solid #fff}
 li.dn{text-decoration:line-through;opacity:.6}
-.kb{position:fixed;left:0;right:0;bottom:0;background:#3b0764ee;padding:6px 4px 10px;z-index:5}
-.kb div{display:flex;justify-content:center;gap:4px;margin:4px 0}
-.kb button{padding:10px 0;width:9%;max-width:42px;font-size:16px}
+.kb{display:none;position:fixed;left:0;right:0;bottom:0;background:#3b0764f2;padding:8px 4px 14px;z-index:5}
+body.kbo .kb{display:block}
+body.kbo #pl{padding-bottom:270px}
+.kb div{display:flex;justify-content:center;gap:5px;margin:6px 0}
+.kb button{padding:15px 0;width:9.4%;max-width:48px;font-size:20px}
 #md{position:fixed;inset:0;background:#2e1065cc;display:flex;align-items:center;justify-content:center;padding:14px;z-index:30}
 #md .card{max-height:85vh;overflow:auto;max-width:520px;width:100%}
 .bg span{position:fixed;opacity:.14;font-size:46px;pointer-events:none;animation:fl 6s ease-in-out infinite alternate}
@@ -136,14 +138,14 @@ function modal(h){let m=$("#md");if(m)m.remove();if(!h)return;m=document.createE
 function study(ids){modal("<h2>📖 Resumo para estudar</h2>"+ids.map(i=>`<h3>${W[i].e} ${W[i].n}</h3><p>${W[i].s}</p>`).join("")+"<button onclick='modal()'>Fechar</button>")}
 function moon(){if(++mc<3)return;mc=0;const s=document.createElement("div");s.className="sheep";s.textContent="🐑 Bééé!";document.body.appendChild(s);setTimeout(()=>s.remove(),5200)}
 
-function home(){G=null;
+function home(){G=null;document.body.classList.remove("kbo");
  A.innerHTML=`<div class="top"><span id="moon">🌙</span></div><h1>🦉 CruzaCoruja 🐧</h1><p class="sub">Palavras cruzadas para o ENEM e vestibular</p>`+
- W.map((w,i)=>`<div class="card w ${open(i)?"":"lock"}"><div class="big">${w.e}</div><div class="g1"><b>Mundo ${i+1}: ${w.n}</b><small>${open(i)?done(i)+" de 6 fases":"🔒 Conclua o mundo anterior"}</small></div>${open(i)?`<button onclick="world(${i})">Entrar</button>`:""}</div>`).join("")+
+ W.map((w,i)=>`<div class="card w ${open(i)?"":"lock"}"><div class="big">${w.e}</div><div class="g1"><b>Mundo ${i+1}: ${w.n}</b><small>${open(i)?done(i)+" de 6 fases":"🔒 Conclua o mundo anterior"}</small></div>${open(i)?`<button onclick="world(${i})">Entrar</button>`:`<button onclick="unlock(${i-1},6)">🔓 Liberar</button>`}</div>`).join("")+
  `<p class="sub">Dica: a lua guarda um segredo 🌙</p>`;
  $("#moon").onclick=moon}
 
-function world(i){G=null;const w=W[i];
- A.innerHTML=`<div class="bar"><button onclick="home()">←</button><span>${w.e} ${w.n}</span><button onclick="study([${i}])">📖</button></div><div class="lv">`+
+function world(i){G=null;document.body.classList.remove("kbo");const w=W[i];
+ A.innerHTML=`<div class="bar"><button onclick="home()">←</button><span>${w.e} ${w.n}</span><span><button onclick="unlock(${i})" ${done(i)>=5?"disabled":""}>🔓 Liberar fase</button> <button onclick="study([${i}])">📖</button></span></div><div class="lv">`+
  [0,1,2,3,4,5].map(k=>`<button class="lvb ${k==5?"sup":""}" ${k>done(i)?"disabled":""} onclick="play(${i},${k})">${k==5?"⭐ Super nível<br><small>só de "+w.n+"</small>":"Fase "+(k+1)+(k<done(i)?" ✅":"")}</button>`).join("")+
  `</div><p class="sub">5 fases mistas e 1 super nível. Travou? Toque em 📖 para revisar.</p>`}
 
@@ -153,12 +155,12 @@ function build(i,k){const o=W[i].w;
  for(let j=1;j<=3;j++){const t=(i+j)%W.length;ws.push(W[t].w[(k*3+j)%12]);ids.push(t)}
  return{ws,ids}}
 
-function lay(ws){let best;
- for(let t=0;t<80;t++){
+function lay(ws){let best,bs0=-1e9;
+ for(let t=0;t<200;t++){
   const L=ws.map(([a,c])=>({a,c})).sort(()=>Math.random()-.5);
   if(t%2)L.sort((x,y)=>y.a.length-x.a.length);
   const g={},P=[];
-  const put=(w,x,y,d)=>{for(let j=0;j<w.a.length;j++){const q=(x+(d?0:j))+","+(y+(d?j:0));g[q]=g[q]||{c:w.a[j],m:0};g[q].m|=1<<d}P.push({...w,x,y,d})};
+  const put=(w,x,y,d)=>{w.z=1;for(let j=0;j<w.a.length;j++){const q=(x+(d?0:j))+","+(y+(d?j:0));g[q]=g[q]||{c:w.a[j],m:0};g[q].m|=1<<d}P.push({...w,x,y,d})};
   const ok=(a,x,y,d)=>{let h=0;const dx=d?0:1,dy=d?1:0;
    if(g[(x-dx)+","+(y-dy)]||g[(x+dx*a.length)+","+(y+dy*a.length)])return 0;
    for(let j=0;j<a.length;j++){const X=x+dx*j,Y=y+dy*j,q=g[X+","+Y];
@@ -166,31 +168,36 @@ function lay(ws){let best;
     else if(g[(X+dy)+","+(Y+dx)]||g[(X-dy)+","+(Y-dx)])return 0}
    return h};
   put(L[0],0,0,0);
-  for(const w of L.slice(1)){let f=0;
-   for(const p of P){if(f)break;const d=1-p.d;
-    for(let i=0;i<p.a.length&&!f;i++)for(let j=0;j<w.a.length;j++){
+  const bx=(x,y,d,n,B)=>[Math.min(B[0],x),Math.min(B[1],y),Math.max(B[2],x+(d?1:n)),Math.max(B[3],y+(d?n:1))];
+  L[0].z=1;let B=[0,0,L[0].a.length,1];
+  for(let pass=0;pass<3;pass++)for(const w of L){if(w.z)continue;let bs=1e9,bp;
+   for(const p of P){const d=1-p.d;
+    for(let i=0;i<p.a.length;i++)for(let j=0;j<w.a.length;j++){
      if(p.a[i]!=w.a[j])continue;
      const x=p.x+(p.d?0:i)-(d?0:j),y=p.y+(p.d?i:0)-(d?j:0);
-     if(ok(w.a,x,y,d)){put(w,x,y,d);f=1;break}}}}
-  if(!best||P.length>best.length)best=P;
-  if(P.length==ws.length)break}
+     if(!ok(w.a,x,y,d))continue;
+     const b=bx(x,y,d,w.a.length,B),s=Math.max(b[2]-b[0],b[3]-b[1])*100+(b[2]-b[0])*(b[3]-b[1]);
+     if(s<bs){bs=s;bp=[x,y,d,b]}}}
+   if(bp){put(w,bp[0],bp[1],bp[2]);B=bp[3]}}
+  const sc=P.length*1e4-Math.max(B[2]-B[0],B[3]-B[1])*100-(B[2]-B[0])*(B[3]-B[1]);
+  if(sc>bs0){bs0=sc;best=P}}
  const mx=Math.min(...best.map(w=>w.x)),my=Math.min(...best.map(w=>w.y));
  best.forEach(w=>{w.x-=mx;w.y-=my});
  const c=Math.max(...best.map(w=>w.x+(w.d?1:w.a.length))),r=Math.max(...best.map(w=>w.y+(w.d?w.a.length:1)));
  best.sort((a,b)=>a.y-b.y||a.x-b.x);
  const n={};let N=0;best.forEach(w=>{const q=w.x+","+w.y;w.n=n[q]||(n[q]=++N)});
- return{p:best,c,r}}
+ const S=Math.max(c,r),ox=(S-c)>>1,oy=(S-r)>>1;best.forEach(w=>{w.x+=ox;w.y+=oy});return{p:best,c:S,r:S}}
 
 const cl=w=>[...w.a].map((_,j)=>(w.x+(w.d?0:j))+","+(w.y+(w.d?j:0)));
 const solved=w=>cl(w).every((q,j)=>G.u[q]==w.a[j]);
 
 function play(i,k){const L=build(i,k),l=lay(L.ws);
  G={i,k,ids:L.ids,p:l.p,c:l.c,r:l.r,u:{},sel:0,cur:cl(l.p[0])[0],w:0};
- const rows=["QWERTYUIOP","ASDFGHJKL","ZXCVBNM⌫"];
- A.innerHTML=`<div class="bar"><button onclick="world(${i})">←</button><span>${k==5?"⭐ Super nível":"Fase "+(k+1)}</span><span><button onclick="hint()">💡</button> <button onclick="study(G.ids)">📖</button></span></div><div id="pl"></div><div class="kb">${rows.map(r=>`<div>${[...r].map(c=>`<button onclick="key('${c}')">${c}</button>`).join("")}</div>`).join("")}</div>`;
+ document.body.classList.add("kbo");const rows=["QWERTYUIOP","ASDFGHJKL","ZXCVBNM⌫"];
+ A.innerHTML=`<div class="bar"><button onclick="world(${i})">←</button><span>${k==5?"⭐ Super nível":"Fase "+(k+1)}</span><span><button onclick="document.body.classList.toggle('kbo')">⌨️</button> <button onclick="hint()">💡</button> <button onclick="study(G.ids)">📖</button></span></div><div id="pl"></div><div class="kb">${rows.map(r=>`<div>${[...r].map(c=>`<button onclick="key('${c}')">${c}</button>`).join("")}</div>`).join("")}</div>`;
  draw()}
 
-function draw(){const{p,c,r,u}=G,s=Math.max(22,Math.min(38,Math.floor((Math.min(innerWidth,560)-44)/c)-3));
+function draw(){const{p,c,r,u}=G,s=Math.max(22,Math.min(38,Math.floor((Math.min(innerWidth,560)-56)/c)-3));
  const hl=new Set(cl(p[G.sel])),num={},own={},okc=new Set();
  p.forEach(w=>{num[w.x+","+w.y]=w.n;cl(w).forEach(q=>own[q]=1);if(solved(w))cl(w).forEach(q=>okc.add(q))});
  let h="";
@@ -205,11 +212,13 @@ function tap(q){const cand=G.p.map((_,j)=>j).filter(j=>cl(G.p[j]).includes(q));
  else if(!cand.includes(G.sel))G.sel=cand[0];
  G.cur=q;draw()}
 function selw(j){G.sel=j;const q=cl(G.p[j]);G.cur=q.find(x=>!G.u[x])||q[0];draw()}
-function key(ch){if(!G||!G.cur)return;const q=cl(G.p[G.sel]),j=q.indexOf(G.cur);
- if(ch=="⌫"){if(G.u[G.cur])delete G.u[G.cur];else if(j>0){G.cur=q[j-1];delete G.u[G.cur]}}
- else{G.u[G.cur]=ch;if(j>=0&&j<q.length-1)G.cur=q[j+1]}
+const lk=q=>G.p.some(w=>solved(w)&&cl(w).includes(q));
+function key(ch){if(!G||!G.cur)return;const q=cl(G.p[G.sel]);let j=q.indexOf(G.cur);if(j<0)return;
+ if(ch=="⌫"){if(lk(G.cur)||!G.u[G.cur]){do j--;while(j>=0&&lk(q[j]));if(j<0)return;G.cur=q[j]}delete G.u[G.cur]}
+ else{if(lk(G.cur))return;G.u[G.cur]=ch;let n=j+1;while(n<q.length&&lk(q[n]))n++;if(n<q.length)G.cur=q[n]}
  draw()}
-function hint(){const w=G.p[G.sel],q=cl(w),j=Math.max(0,q.indexOf(G.cur));G.u[q[j]]=w.a[j];draw()}
+function hint(){const w=G.p[G.sel],q=cl(w);let j=Math.max(0,q.indexOf(G.cur));if(G.u[q[j]]==w.a[j]){const f=q.findIndex((x,t)=>G.u[x]!=w.a[t]);if(f<0)return;j=f}G.u[q[j]]=w.a[j];draw()}
+function unlock(i,n){P[i]=Math.max(done(i),n||done(i)+1);save();n?home():world(i)}
 function win(){if(!G||G.w)return;G.w=1;const{i,k}=G;if(done(i)<=k){P[i]=k+1;save()}
  modal(`<h2>🎉 ${k==5?"Mundo concluído!":"Fase concluída!"}</h2><p>${k==5?"A coruja está orgulhosa de você! 🦉":"Muito bem! Próxima fase liberada. 🐧"}</p><button onclick="modal();world(${i})">Continuar</button>`)}
 
